@@ -17,7 +17,7 @@ export default function Preloader() {
                 <Col />
                 <Col className='text-center animate-bounce'>
                     <img className="m-auto F1" src="./f1.png"/>
-                    <p className="text-3xl mt-3">Chargement ...</p>
+                    <p className="text-3xl mt-3">Loading ...</p>
                 </Col>
                 <Col />
             </Row>

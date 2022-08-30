@@ -33,7 +33,7 @@ export default function Navigation() {
         .then((res) => res.json())
         .then((res) => {
             if (res.length === 0){
-                toast.error('Email / Mot de passe inconnu.', {
+                toast.error('Wrong email / password.', {
                     position: toast.POSITION.TOP_CENTER,
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -48,7 +48,7 @@ export default function Navigation() {
             }
         })
         .catch((err) => {
-            toast.error('Une erreur est survenue lors de la connexion.', {
+            toast.error('An error occured during the connection.', {
                 position: toast.POSITION.TOP_CENTER,
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -75,22 +75,22 @@ export default function Navigation() {
                     <Navbar.Brand onClick={openCanvas}><i className="bi bi-list text-4xl transition-all duration-300 hover:text-[#ef233c]" /></Navbar.Brand>
                     <Navbar.Text >
                         {
-                            user ? <Button className='font-bold' variant='outline' onClick={() => toggleModal(!showModal)}>Se déconnecter</Button> : <Button className='font-bold' variant='outline' onClick={() => toggleModal(!showModal)}>Se connecter</Button>
+                            user ? <Button className='font-bold' variant='outline' onClick={() => toggleModal(!showModal)}>Log Out</Button> : <Button className='font-bold' variant='outline' onClick={() => toggleModal(!showModal)}>Log in</Button>
                         }
                     </Navbar.Text>
                 </Container>
             </Navbar>
             <Offcanvas show={showCanvas} onHide={closeCanvas}>
             <Offcanvas.Header>
-                <Offcanvas.Title className='font-bold uppercase text-3xl'>Menu principal</Offcanvas.Title>
+                <Offcanvas.Title className='font-bold uppercase text-3xl'>Main Menu</Offcanvas.Title>
             </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Container fluid>
                         <Row>
-                            <Link to='/home' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Accueil</Link>
-                            <Link to='/seasons/current' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Saison actuelle</Link>
-                            <Link to='/seasons/allSeasons' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Saisons</Link>
-                            <Link to='/drivers' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Pilotes</Link>
+                            <Link to='/home' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Home</Link>
+                            <Link to='/seasons/current' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Current season</Link>
+                            <Link to='/seasons/allSeasons' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Elder seasons</Link>
+                            <Link to='/drivers' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Drivers</Link>
                         </Row>
                     </Container>
                 </Offcanvas.Body>
@@ -100,29 +100,27 @@ export default function Navigation() {
                 <Modal.Header closeButton>
                     <Modal.Title className='font-bold uppercase'>
                         {
-                            user ? 'Déconnexion utilisateur' : 'Connexion utilisateur' 
+                            user ? 'User log out' : 'User log in' 
                         }
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {
                         user ? 
-                        
-                            <p>Êtes vous sûr de vouloir vous déconnecter ?</p>
-
+                            <p>Are you sure you want to log out?</p>
                         :
                         <Form>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Adresse e-mail</Form.Label>
-                                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Entrez votre email" required={true}/>
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="example@example.com" required={true}/>
                                 <Form.Text className="text-muted">
-                                    Votre adresse et vos informations ne seront jamais dévoilées.
+                                    Your email address and personnal informations will not be selled or revealed
                                 </Form.Text>
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Mot de passe</Form.Label>
-                                <Form.Control value={pwd} onChange={(e) => setPwd(e.target.value)} type="password" placeholder="Mot de passe" required={true}/>
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control value={pwd} onChange={(e) => setPwd(e.target.value)} type="password" placeholder="Password" required={true}/>
                             </Form.Group>
                         </Form>
                     }
@@ -130,14 +128,14 @@ export default function Navigation() {
                 <Modal.Footer>
                     <Button variant="outline-secondary" onClick={() => toggleModal(!showModal)}>
                         {
-                            user ? 'Non' : 'Annuler'
+                            user ? 'No' : 'Cancel'
                         }
                     </Button>
                     <Button variant='outline-danger' onClick={
                         user ? () => {disconnectUser(); toggleModal(false)} : () => {fetchingUser()}
                     } type='submit'>
                         {
-                            user ? 'Oui' : 'Confirmer'
+                            user ? 'Yes' : 'Confirm'
                         }
                     </Button>
                 </Modal.Footer>

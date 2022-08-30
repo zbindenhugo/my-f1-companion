@@ -35,31 +35,37 @@ export default function Season(){
                                 
                                 if(raceDate < Date.now()){
                                     status = 'FINISH'
-                                    return <Badge className='mt-2 ml-2 w-20' bg='success'>Terminé</Badge>
+                                    return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='success'>Finished</Badge>
                                 } else {
                                     status = 'UPCOMMING';
                                     if (!closestDate){
                                         closestDate = true;
                                         nextRound = race.round;
-                                        return <Badge className='mt-2 ml-2 w-24' bg='danger'>Prochain GP</Badge>
+                                        return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='danger'>Next Race</Badge>
                                     } else {
-                                        return <Badge className='mt-2 ml-2 w-20' bg='secondary'>À venir ...</Badge>
+                                        return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='secondary'>Upcomming</Badge>
                                     }
                                 }
 
                             }
 
                             return(
-                                <Card key={race.round} className='lg:w-[600px]'>
-                                    {
-                                        putBadge()
-                                    } 
-                                    <Card.Body><strong>{race.raceName}</strong> - {race?.Circuit?.circuitName} - { new Date(race?.FirstPractice.date).toLocaleDateString() } </Card.Body>
+                                <Card key={race?.round} className='lg:w-[600px]'>
+                                    <Card.Header>
+                                        {
+                                            putBadge()
+                                        } 
+                                        <img className='w-10 h-10 float-right' src={`../../countries/${race?.Circuit?.Location?.country}.png`} alt='Country flag' />
+                                    </Card.Header>
+                                    
+                                    <Card.Body className='table-cell align-middle'>
+                                        <p><strong>{race.raceName}</strong> - {race?.Circuit?.circuitName} { new Date(race?.FirstPractice?.date) < Date.now() ? '' : '- ' + new Date(race?.FirstPractice?.date).toLocaleDateString() }</p>
+                                    </Card.Body>
                                     <Card.Footer className='text-right'>
                                         {status === 'FINISH' ? 
-                                            <Button as={Link} to={ `/seasons/${year}/${race?.round}/results`}>Voir les résultats</Button> 
+                                            <Button as={Link} to={ `/seasons/${year}/${race?.round}/results`}>Results</Button> 
                                         : 
-                                            <Button as={Link} to={`/seasons/${year}/${race?.round}/infos`}>Informations sur le GP</Button>
+                                            <Button as={Link} to={`/seasons/${year}/${race?.round}/infos`}>Details of the GP</Button>
                                         }
                                     </Card.Footer>
                                 </Card>
