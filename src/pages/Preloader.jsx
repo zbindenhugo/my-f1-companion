@@ -6,7 +6,7 @@ import './Preloader.css'
 export default function Preloader() {
     useEffect(() => {
         setTimeout(() => {
-            window.location.href = 'http://localhost:3000/home'
+            window.location.pathname = '/home'
         }, 2000);
     }, [])
     
