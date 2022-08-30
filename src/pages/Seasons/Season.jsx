@@ -43,12 +43,12 @@ export default function Season(){
                                         nextRound = race.round;
                                         return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='danger'>Next Race</Badge>
                                     } else {
-                                        return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='secondary'>Upcomming</Badge>
+                                        return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='secondary'>Upcoming</Badge>
                                     }
                                 }
 
                             }
-
+                            
                             return(
                                 <Card key={race?.round} className='lg:w-[600px]'>
                                     <Card.Header>

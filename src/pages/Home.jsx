@@ -86,6 +86,7 @@ export default function Home() {
                                 <th className='p-2 border border-slate-100 bg-[#2b2d42] text-white'>Position</th>
                                 <th className='p-2 border border-slate-100 bg-[#2b2d42] text-white'>Driver</th>
                                 <th className='p-2 border border-slate-100 bg-[#2b2d42] text-white'>Time</th>
+                                <th className='p-2 border border-slate-100 bg-[#2b2d42] text-white'>Points</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,8 +94,9 @@ export default function Home() {
                                 lastResults.map((res) => 
                                     <tr key={res?.Driver?.driverId}>
                                         <td className='px-2 border text-center font-bold'>{ res?.position}</td>
-                                        <td className='px-2 border'>{ res?.Driver?.givenName } { res?.Driver?.familyName }</td>
-                                        <td className='px-2 border'>{ res?.Time?.time === undefined ? '(' + res?.status + ')' : <span className={res?.FastestLap?.rank === '1' ? "text-purple-600" : ''}> {res?.Time?.time}</span>}</td>
+                                        <td className='px-2 border'><span className={res?.FastestLap?.rank === '1' ? "text-purple-600 font-bold" : ''}>{ res?.Driver?.givenName } { res?.Driver?.familyName } </span></td>
+                                        <td className='px-2 border'><span className={res?.FastestLap?.rank === '1' ? "text-purple-600 font-bold" : ''}>{ res?.Time?.time === undefined ? '(' + res?.status + ')' : res?.Time?.time }</span></td>
+                                        <td className='px-2 border'><span className={res?.FastestLap?.rank === '1' ? "text-purple-600 font-bold" : ''}>{res?.FastestLap?.rank === '1' ? (res?.points - 1) + ' (+1 for fastest Lap)' : res?.points } </span></td>
                                     </tr>
                                 )
                             }
