@@ -2,13 +2,14 @@ import './Navigation.css'
 
 import { useContext, useState } from "react";
 
-import { Container, Navbar, Offcanvas, Button, Modal, Form, Row } from "react-bootstrap";
+import { Container, Navbar, Offcanvas, Button, Modal, Form, Row, Dropdown } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 
 import { Base64 } from 'js-base64';
 
 import { UserContext } from '../contexts/Contexts';
 import { toast } from 'react-toastify';
+import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
 
 
 export default function Navigation() {
@@ -75,22 +76,37 @@ export default function Navigation() {
                     <Navbar.Brand onClick={openCanvas}><i className="bi bi-list text-4xl transition-all duration-300 hover:text-[#ef233c]" /></Navbar.Brand>
                     <Navbar.Text >
                         {
-                            user ? <Button className='font-bold' variant='outline' onClick={() => toggleModal(!showModal)}>Log Out</Button> : <Button className='font-bold' variant='outline' onClick={() => toggleModal(!showModal)}>Log in</Button>
+                            user ? 
+                            <Dropdown>
+                                <Dropdown.Toggle variant='outline-secondary'>
+                                <i class="fa fa-user-o fa-lg" aria-hidden="true"></i> {user.firstname} {user.lastname}
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item as={Link} to='/profile'>My profile</Dropdown.Item>
+                                    <Dropdown.Item as={Link} to='/preferences'>My Preferences</Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item onClick={() => toggleModal(true)}>
+                                        <span className='text-[#d90429] font-bold'>Log Out</span>
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            : 
+                                <Button variant='outline-secondary' onClick={() => toggleModal(true)}>Log in</Button>
                         }
                     </Navbar.Text>
                 </Container>
             </Navbar>
-            <Offcanvas show={showCanvas} onHide={closeCanvas}>
-            <Offcanvas.Header>
-                <Offcanvas.Title className='font-bold uppercase text-3xl'>Main Menu</Offcanvas.Title>
-            </Offcanvas.Header>
+            <Offcanvas show={showCanvas} onHide={closeCanvas} className='bg-[#]'>
+                <Offcanvas.Header className='text-center'>
+                    <Offcanvas.Title className='font-bold uppercase italic text-5xl mr-auto ml-auto'>Main Menu</Offcanvas.Title>
+                </Offcanvas.Header>
                 <Offcanvas.Body>
                     <Container fluid>
                         <Row>
-                            <Link to='/home' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Home</Link>
-                            <Link to='/seasons/current' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Current season</Link>
-                            <Link to='/seasons/allSeasons' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Elder seasons</Link>
-                            <Link to='/drivers' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'>Drivers</Link>
+                            <Link to='/home' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname === '/home' ? 'font-bold' : ''}>Home</span></Link>
+                            <Link to='/seasons/current' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname.includes('/seasons/current') ? 'font-bold' : ''}>Current season</span></Link>
+                            <Link to='/seasons/allseasons' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname !== '/seasons/current' && window.location.pathname.includes('/seasons/')  ? 'font-bold' : ''}>Elder seasons</span></Link>
+                            <Link to='/drivers' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname === '/drivers' ? 'font-bold' : ''}>Drivers</span></Link>
                         </Row>
                     </Container>
                 </Offcanvas.Body>

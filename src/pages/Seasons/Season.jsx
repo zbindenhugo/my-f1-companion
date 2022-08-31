@@ -20,59 +20,68 @@ export default function Season(){
                 <Col />
                 <Col className='text-center'>
                     {
-                        year != 'current' ? <h1 className='h1 uppercase'>Saison {year}</h1> : <h1 className='h1 uppercase'>Saison actuelle</h1>
+                        year != 'current' ? <p className='text-6xl uppercase'>Season {year}</p> : <p className='text-5xl uppercase'>Current season</p>
                     }
                 </Col>
                 <Col />
             </Row>
             <Row className='mt-10'>
-                <Stack gap={3} className='content-center items-center'>
+                <div className='grid lg:grid-cols-3 sm:grid-cols-1 gap-4'>
                     {
                         currentSeason.map((race) => {
                             var status = '';
+                            const raceDate = new Date(race.date);
+
+                            if(raceDate < Date.now()){
+                                status = 'FINISH'
+                            } else {
+                                status = 'UPCOMMING';
+                            }
+
                             const putBadge = () => {
-                                const raceDate = new Date(race.date);
-                                
                                 if(raceDate < Date.now()){
                                     status = 'FINISH'
-                                    return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='success'>Finished</Badge>
+                                    return <Badge className='mt-[0.3rem] mr-2 text-sm float-right' bg='success'>Finished</Badge>
                                 } else {
                                     status = 'UPCOMMING';
                                     if (!closestDate){
                                         closestDate = true;
                                         nextRound = race.round;
-                                        return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='danger'>Next Race</Badge>
+                                        return <Badge className='mt-[0.6rem] mr-2 text-sm float-right' bg='danger'>Next Race</Badge>
                                     } else {
-                                        return <Badge className='mt-[0.6rem] ml-2 text-sm' bg='secondary'>Upcoming</Badge>
+                                        return <Badge className='mt-[0.6rem] mr-2 text-sm float-right' bg='secondary'>Upcoming</Badge>
                                     }
                                 }
 
                             }
                             
                             return(
-                                <Card key={race?.round} className='lg:w-[600px]'>
-                                    <Card.Header>
+                                <div key={race?.round} className='hover:scale-105 duration-100 shadow-md rounded-lg p-3 bg-white'>
+                                    <div>
                                         {
                                             putBadge()
-                                        } 
-                                        <img className='w-10 h-10 float-right' src={`../../countries/${race?.Circuit?.Location?.country}.png`} alt='Country flag' />
-                                    </Card.Header>
-                                    
-                                    <Card.Body className='table-cell align-middle'>
-                                        <p><strong>{race.raceName}</strong> - {race?.Circuit?.circuitName} { new Date(race?.FirstPractice?.date) < Date.now() ? '' : '- ' + new Date(race?.FirstPractice?.date).toLocaleDateString() }</p>
-                                    </Card.Body>
-                                    <Card.Footer className='text-right'>
-                                        {status === 'FINISH' ? 
-                                            <Button as={Link} to={ `/seasons/${year}/${race?.round}/results`}>Results</Button> 
-                                        : 
-                                            <Button as={Link} to={`/seasons/${year}/${race?.round}/infos`}>Details of the GP</Button>
                                         }
-                                    </Card.Footer>
-                                </Card>
+                                        <img className='w-16 h-16' src={`../../countries/${race?.Circuit?.Location?.country}.png`} alt='Country flag' /> 
+                                        
+                                    </div>
+                                    <div className='ml-5 text-center'>
+                                        <div className='mt-[0.4rem] text-lg'>
+                                            <p><strong>{race.raceName}</strong> { new Date(race?.FirstPractice?.date) < Date.now() ? '' : '- ' + new Date(race?.FirstPractice?.date).toLocaleDateString() }</p>
+                                            <p>{race?.Circuit?.circuitName}</p>
+                                        </div>
+                                        <div className='text-center mt-3'>
+                                            {status === 'FINISH' ? 
+                                                <Button as={Link} to={`/seasons/${year}/${race?.round}/results`}>Results</Button> 
+                                            : 
+                                                <Button as={Link} to={`/seasons/${year}/${race?.round}/infos`}>Details of the GP</Button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
                             )
                         })
                     }
-                </Stack>
+                </div>
             </Row>
         </Container>
     )
