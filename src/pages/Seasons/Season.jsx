@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Badge, Button, Card, Carousel, CarouselItem, Col, Container, Placeholder, Row, Stack } from 'react-bootstrap';
+import { Badge, Button, Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 
 export default function Season(){
     const { year } = useParams();
     var closestDate = false;
-    var nextRound = 0;
     const [currentSeason, setCurrentSeason] = useState([])
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
     useEffect(() => {        
-        fetch('https://ergast.com/api/f1/' + year + '.json')
+        fetch(`https://ergast.com/api/f1/${year}.json`)
             .then((res) => res.json())
             .then((res) => setCurrentSeason(res.MRData.RaceTable.Races))
-    }, [])
+    }, [year])
 
     return(
         <Container className='mt-5'>
@@ -21,7 +20,7 @@ export default function Season(){
                 <Col />
                 <Col className='text-center'>
                     {
-                        year != 'current' ? <p className='text-6xl uppercase'>Season {year}</p> : <p className='text-5xl uppercase'>Current season</p>
+                        year !== 'current' ? <p className='text-6xl uppercase'>Season {year}</p> : <p className='text-5xl uppercase'>Current season</p>
                     }
                 </Col>
                 <Col />
@@ -46,7 +45,6 @@ export default function Season(){
                                     status = 'UPCOMMING';
                                     if (!closestDate){
                                         closestDate = true;
-                                        nextRound = race.round;
                                         return <Badge className='mt-[0.6rem] mr-2 text-sm float-right' bg='danger'>Next Race</Badge>
                                     } else {
                                         return <Badge className='mt-[0.6rem] mr-2 text-sm float-right' bg='info'>Upcoming</Badge>

@@ -25,10 +25,10 @@ export default function Drivers(){
                 {
                     alldrivers?.map((driver) => {
                         return(
-                            <div className={`overflow-hidden bg-white shadow sm:rounded-lg`}>
+                            <div className={`overflow-hidden bg-white shadow sm:rounded-lg`} key={driver.Driver.driverId}>
                                 <div >
-                                    <img src={`/countries/${driver.Driver.nationality}.png`} className='float-left' />
-                                    <img src={`/drivers/${driver.Driver.driverId}.png`} className="ml-auto mr-auto" />
+                                    <img src={`/countries/${driver.Driver.nationality}.png`} className='float-left' alt="Driver nationality flag" />
+                                    <img src={`/drivers/${driver.Driver.driverId}.png`} className="ml-auto mr-auto" alt="Driver" />
                                 </div>
                             </div>
                         )
