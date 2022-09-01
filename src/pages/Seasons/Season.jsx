@@ -1,3 +1,5 @@
+import './Season.css'
+
 import { useEffect, useState } from 'react';
 import { Badge, Button, Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
@@ -56,33 +58,36 @@ export default function Season(){
                             console.log()
 
                             return(
-                                <div key={race?.round} className='hover:scale-105 duration-100 shadow-md rounded-lg p-3 bg-white'>
+                                <div key={race?.round} className='hover:scale-105 duration-100 shadow-md rounded-lg p-3 bg-white card-race'>
                                     <div>
-                                        {
-                                            putBadge()
-                                        }
-                                        <img className='w-16 h-16' src={`/countries/${race?.Circuit?.Location?.country}.png`} alt='Country flag' /> 
-                                        
-                                    </div>
-                                    <div className='ml-5 text-center'>
-                                        <div className='text-lg'>
-                                            <p>
-                                                <strong>{race.raceName}</strong>
-                                                {'  '}
-                                                <span className='text-sm'> 
-                                                    { race.FirstPractice.date.substring(8, 10) }-{ race.date.substring(8, 10) + ' ' } 
-                                                    { month[parseInt(race.date.substring(5,7))] }
-                                                </span>
-                                            </p>
+                                        <div>
                                             
-                                            <p>{race.Circuit.circuitName}</p>
-                                        </div>
-                                        <div className='text-center mt-3'>
-                                            {status === 'FINISH' ? 
-                                                <Button variant='outline-success' as={Link} to={`/seasons/${year}/${race?.round}/results`}>Results</Button> 
-                                            : 
-                                                <Button variant='outline-secondary' as={Link} to={`/seasons/${year}/${race?.round}/infos`}>Details of the GP</Button>
+                                            {
+                                                putBadge()
                                             }
+                                            <img className='w-16 h-16' src={`/countries/${race?.Circuit?.Location?.country}.png`} alt='Country flag' /> 
+                                            
+                                        </div>
+                                        <div className='ml-5 text-center'>
+                                            <div className='text-lg'>
+                                                <p>
+                                                    <strong>{race.raceName}</strong>
+                                                    {'  '}
+                                                    <span className='text-sm'> 
+                                                        { race.FirstPractice.date.substring(8, 10) }-{ race.date.substring(8, 10) + ' ' } 
+                                                        { month[parseInt(race.date.substring(5,7))] }
+                                                    </span>
+                                                </p>
+                                                
+                                                <p>{race.Circuit.circuitName}</p>
+                                            </div>
+                                            <div className='text-center mt-3'>
+                                                {status === 'FINISH' ? 
+                                                    <Button variant='outline-success' as={Link} to={`/seasons/${year}/${race?.round}/results`}>Results</Button> 
+                                                : 
+                                                    <Button variant='outline-secondary' as={Link} to={`/seasons/${year}/${race?.round}/infos`}>Details of the GP</Button>
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -15,17 +15,14 @@ export default function Home() {
             var json, data;
             data = await fetch('https://ergast.com/api/f1/current/next.json');
             json = await data.json();
-
             setNextRace(json.MRData.RaceTable.Races[0]);
 
             data = await fetch('https://ergast.com/api/f1/current/last.json');
             json = await data.json();
-
             setLastRace(json.MRData.RaceTable.Races[0]);
 
             data = await fetch('https://ergast.com/api/f1/current/last/results.json');
             json = await data.json();
-
             setLastResults(json.MRData.RaceTable.Races[0].Results) 
         }
 
