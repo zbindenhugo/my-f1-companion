@@ -63,8 +63,8 @@ export default function Home() {
                                     <li><strong>The race:</strong> { new Date(nextRace?.date + 'T' + nextRace?.time).toLocaleString() }</li>
                                 </ul>
                             </Col>
-                            <Col className="text-center">
-                                <img className='mt-10 ml-10 hover:scale-150 duration-300' src={`./circuits/${nextRace?.Circuit?.circuitId}.png`} alt="Next race track"/>
+                            <Col className="text-center portrait:hidden">
+                                <img className='mt-10 ml-10 hover:scale-150 duration-300' src={`/circuits/${nextRace?.Circuit?.circuitId}.png`} alt="Next race track"/>
                             </Col>
                         </Row>
                         <Row className="mt-5">

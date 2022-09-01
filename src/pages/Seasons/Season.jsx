@@ -7,6 +7,7 @@ export default function Season(){
     var closestDate = false;
     var nextRound = 0;
     const [currentSeason, setCurrentSeason] = useState([])
+    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
     useEffect(() => {        
         fetch('https://ergast.com/api/f1/' + year + '.json')
@@ -30,16 +31,15 @@ export default function Season(){
                     {
                         currentSeason.map((race) => {
                             var status = '';
-                            const raceDate = new Date(race.date);
 
-                            if(raceDate < Date.now()){
+                            if(new Date(race.date) < Date.now()){
                                 status = 'FINISH'
                             } else {
                                 status = 'UPCOMMING';
                             }
 
                             const putBadge = () => {
-                                if(raceDate < Date.now()){
+                                if(new Date(race.date) < Date.now()){
                                     status = 'FINISH'
                                     return <Badge className='mt-[0.3rem] mr-2 text-sm float-right' bg='success'>Finished</Badge>
                                 } else {
@@ -49,31 +49,41 @@ export default function Season(){
                                         nextRound = race.round;
                                         return <Badge className='mt-[0.6rem] mr-2 text-sm float-right' bg='danger'>Next Race</Badge>
                                     } else {
-                                        return <Badge className='mt-[0.6rem] mr-2 text-sm float-right' bg='secondary'>Upcoming</Badge>
+                                        return <Badge className='mt-[0.6rem] mr-2 text-sm float-right' bg='info'>Upcoming</Badge>
                                     }
                                 }
 
                             }
                             
+                            console.log()
+
                             return(
                                 <div key={race?.round} className='hover:scale-105 duration-100 shadow-md rounded-lg p-3 bg-white'>
                                     <div>
                                         {
                                             putBadge()
                                         }
-                                        <img className='w-16 h-16' src={`../../countries/${race?.Circuit?.Location?.country}.png`} alt='Country flag' /> 
+                                        <img className='w-16 h-16' src={`/countries/${race?.Circuit?.Location?.country}.png`} alt='Country flag' /> 
                                         
                                     </div>
                                     <div className='ml-5 text-center'>
-                                        <div className='mt-[0.4rem] text-lg'>
-                                            <p><strong>{race.raceName}</strong> { new Date(race?.FirstPractice?.date) < Date.now() ? '' : '- ' + new Date(race?.FirstPractice?.date).toLocaleDateString() }</p>
-                                            <p>{race?.Circuit?.circuitName}</p>
+                                        <div className='text-lg'>
+                                            <p>
+                                                <strong>{race.raceName}</strong>
+                                                {'  '}
+                                                <span className='text-sm'> 
+                                                    { race.FirstPractice.date.substring(8, 10) }-{ race.date.substring(8, 10) + ' ' } 
+                                                    { month[parseInt(race.date.substring(5,7))] }
+                                                </span>
+                                            </p>
+                                            
+                                            <p>{race.Circuit.circuitName}</p>
                                         </div>
                                         <div className='text-center mt-3'>
                                             {status === 'FINISH' ? 
-                                                <Button as={Link} to={`/seasons/${year}/${race?.round}/results`}>Results</Button> 
+                                                <Button variant='outline-success' as={Link} to={`/seasons/${year}/${race?.round}/results`}>Results</Button> 
                                             : 
-                                                <Button as={Link} to={`/seasons/${year}/${race?.round}/infos`}>Details of the GP</Button>
+                                                <Button variant='outline-secondary' as={Link} to={`/seasons/${year}/${race?.round}/infos`}>Details of the GP</Button>
                                             }
                                         </div>
                                     </div>

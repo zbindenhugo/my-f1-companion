@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RaceResult from './pages/races/RaceResult';
 import RaceInfos from './pages/races/RaceInfos';
+import Drivers from './pages/drivers/Drivers';
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Preloader />} />
         <Route path='/home' element={<Home />} />
+        <Route path='/create-account' element={<RaceInfos />} />
+        <Route path='/drivers' element={<Drivers />} />
         <Route path='seasons'>
           <Route path=':year' element={<Season />} />
           <Route path=':year/:round/results' element={<RaceResult />} />

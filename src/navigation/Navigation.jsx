@@ -105,7 +105,7 @@ export default function Navigation() {
                         <Row>
                             <Link to='/home' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname === '/home' ? 'font-bold' : ''}>Home</span></Link>
                             <Link to='/seasons/current' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname.includes('/seasons/current') ? 'font-bold' : ''}>Current season</span></Link>
-                            <Link to='/seasons/allseasons' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname !== '/seasons/current' && window.location.pathname.includes('/seasons/')  ? 'font-bold' : ''}>Elder seasons</span></Link>
+                            <Link to='/seasons/allseasons' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={!window.location.pathname.includes('/seasons/current') && window.location.pathname.includes('/seasons/')  ? 'font-bold' : ''}>All seasons</span></Link>
                             <Link to='/drivers' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname === '/drivers' ? 'font-bold' : ''}>Drivers</span></Link>
                         </Row>
                     </Container>
@@ -125,23 +125,29 @@ export default function Navigation() {
                         user ? 
                             <p>Are you sure you want to log out?</p>
                         :
-                        <Form>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="example@example.com" required={true}/>
-                                <Form.Text className="text-muted">
-                                    Your email address and personnal informations will not be selled or revealed
-                                </Form.Text>
-                            </Form.Group>
+                        <div>
+                            <Form>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="example@example.com" required={true}/>
+                                    <Form.Text className="text-muted">
+                                        Your email address and personnal informations will not be selled or revealed
+                                    </Form.Text>
+                                </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control value={pwd} onChange={(e) => setPwd(e.target.value)} type="password" placeholder="Password" required={true}/>
-                            </Form.Group>
-                        </Form>
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control value={pwd} onChange={(e) => setPwd(e.target.value)} type="password" placeholder="Password" required={true}/>
+                                </Form.Group>
+                            </Form>
+
+                            <hr className='mb-2 ml-auto mr-auto w-[50%]' />
+
+                            <p className='text-center'>You don't have account ? <Link className='cursor-pointer font-bold' to='/create-account' onClick={() => toggleModal(false)}>Create one !</Link></p>
+                        </div>
                     }
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className='floa'>
                     <Button variant="outline-secondary" onClick={() => toggleModal(!showModal)}>
                         {
                             user ? 'No' : 'Cancel'
