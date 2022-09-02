@@ -58,7 +58,7 @@ export default function Season(){
                             console.log()
 
                             return(
-                                <div key={race?.round} className='hover:scale-105 duration-100 shadow-md rounded-lg p-3 bg-white card-race'>
+                                <div key={race?.round} className='hover:scale-105 duration-100 shadow-md rounded-lg p-3 bg-[#edf2f8b2] card-race'>
                                     <div>
                                         <div>
                                             

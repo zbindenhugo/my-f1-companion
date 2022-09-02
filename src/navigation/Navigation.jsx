@@ -102,10 +102,10 @@ export default function Navigation() {
                 <Offcanvas.Body>
                     <Container fluid>
                         <Row>
-                            <Link to='/home' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname === '/home' ? 'font-bold' : ''}>Home</span></Link>
-                            <Link to='/seasons/current' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname.includes('/seasons/current') ? 'font-bold' : ''}>Current season</span></Link>
-                            <Link to='/seasons/allseasons' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={!window.location.pathname.includes('/seasons/current') && window.location.pathname.includes('/seasons/')  ? 'font-bold' : ''}>All seasons</span></Link>
-                            <Link to='/drivers' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname === '/drivers' ? 'font-bold' : ''}>Drivers</span></Link>
+                            <Link to='/home' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname === '/home' ? 'font-bold text-[#d90429]' : ''}>Home</span></Link>
+                            <Link to='/seasons/current' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname.includes('/seasons/current') ? 'font-bold text-[#d90429]' : ''}>Current season</span></Link>
+                            <Link to='/seasons/allseasons' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={!window.location.pathname.includes('/seasons/current') && window.location.pathname.includes('/seasons/')  ? 'font-bold text-[#d90429]' : ''}>All seasons</span></Link>
+                            <Link to='/drivers' onClick={() => setShowCanvas(false)} className='text-xl transition-all duration-150 hover:tracking-wider hover:text-[#d90429]'><span className={window.location.pathname === '/drivers' ? 'font-bold text-[#d90429]' : ''}>Drivers</span></Link>
                         </Row>
                     </Container>
                 </Offcanvas.Body>

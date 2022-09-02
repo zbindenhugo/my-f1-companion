@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import RaceResult from './pages/races/RaceResult';
 import RaceInfos from './pages/races/RaceInfos';
 import Drivers from './pages/drivers/Drivers';
+import CreateAccount from './pages/account/CreateAccount';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Preloader />} />
         <Route path='/home' element={<Home />} />
-        <Route path='/create-account' element={<RaceInfos />} />
+        <Route path='/create-account' element={<CreateAccount />} />
         <Route path='/drivers' element={<Drivers />} />
         <Route path='seasons'>
           <Route path=':year' element={<Season />} />
